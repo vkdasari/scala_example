@@ -1,0 +1,135 @@
+val emp=Array("101,AAA,3000,m,11","102,BBB,5000,m,12","103,CCC,7000,f,11","104,DDD,8000,f,12","105,EEE,4000,m,11")
+
+//select sex, sum(sal) from emp group by sex;
+//Array((m,3000),(m,5000),(f,7000),(f,8000),(m,4000))
+
+//transforming records in to key,value pairs
+
+val pair1 = emp.map{x => 
+val w=x.split(",")
+val sex =w(3)
+val sal = w(2).toInt
+val t = (sex,sal)
+t
+}
+
+
+//select dno, sum(sal) from emp group by dno
+
+val pair2 = emp.map{x =>
+val w = x.split(",")
+val dno = w(4)
+val sal = w(2).toInt
+(dno,sal)
+}
+
+"101,AAA,3000,m,11"
+"102,BBB,5000,m,12"
+"103,CCC,7000,f,11"
+"104,DDD,8000,f,12"
+"105,EEE,4000,m,11"
+//select dno, sex, sum(sal) from emp group by dno, sex
+Array( ((11,m),3000), ((12,m),5000), ((11,f),7000), ((12,f),8000), ((11,m),4000) )
+val pair3 = emp.map{x =>
+	val w = x.split(",")
+	val dno=w(4)
+	val sex=w(3)
+	val sal=w(2).toInt
+	val myKey = (dno,sex)
+	val t = (myKey,sal)
+	t
+}
+
+//transforming in to tuple 
+val recs = emp.map{x =>
+	val w = x.split(",")
+	val id = w(0).toInt
+	val name = w(1)
+	val sal=w(2).toInt
+	val sex=w(3)
+	val dno=w(4)
+	(id,name,sal,sex,dno)
+}
+recs.foreach(println)
+(101,AAA,3000,m,11)
+(102,BBB,5000,m,12)
+(103,CCC,7000,f,11)
+(104,DDD,8000,f,12)
+(105,EEE,4000,m,11)
+
+//(sex,sal)
+val pair4 = recs.map( x => (x._4,x._3.toInt))
+
+//select sum(sal) from recs
+val sals = recs.map(x => x._3)
+val sals = recs.map(x => x._3).sum
+
+//unsctuctured data to structured data
+val textdata = "  I  love    Swarna  "
+val text = textdata.trim()
+val w = text.split(" ")
+val words = w.filter(x => x!="")
+Array(I,love,Swarna)
+val newLine = words.mkString("")
+IloveSwarna
+val newLine = words.mkString(" ")
+I love Swarna
+
+
+val comments = List(" I Love   Swarna  ", "Prasanna    is the   Cutest", "           Prasanna is 5 years          old")
+val newComment = comments.map{ line =>
+val w = line.trim().split(" ")
+val words = w.filter(x=> x!="")
+words.mkString(" ")
+}
+
+
+
+CASE Class --> Shema 
+emp.foreach(println)
+101,AAA,3000,m,11
+102,BBB,5000,m,12
+103,CCC,7000,f,11
+104,DDD,8000,f,12
+105,EEE,4000,m,11
+case class Emp(id:Int, name:String, sal:Int, sex:String, dname:String)
+
+
+val e = emp.map{x =>
+	val w = x.split(",")
+	val id = w(0).toInt
+	val name = w(1)
+	val sal=w(2).toInt
+	val sex=w(3)
+	val dno=w(4).toInt
+	val dname = dno match{
+		case 11 => "Marketing"
+		case 12 => "Hr"
+		case 13 => "Fin"
+		case other => "Others"
+	}
+	val rec = Emp(id,name,sal,sex,dname)
+	rec
+}
+//dno ==> dname
+
+//Transfromation (dname,sal) 
+val pair5 = e.map (x=> (x.dname,x.sal))
+
+
+//Fuctions
+def f: String = "Hello"
+
+def f = "Hello"
+
+def 
+
+
+
+
+
+
+
+
+
+
